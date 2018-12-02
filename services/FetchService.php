@@ -40,7 +40,7 @@ class  FetchService
         $promises = (function () use ($client, $items, $overwrite, $cfgService) {
             foreach ($items as $item) {
                 $dataUrl = $item->getDataUrl($this->cfgService);
-                $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title . ".jpg");
+                $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title) . ".jpg";
                 if ($overwrite && file_exists($loc)) unlink($loc);
                 yield $client->requestAsync('GET', $dataUrl, ['sink' => $loc]);
                 echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] $loc" . PHP_EOL;
