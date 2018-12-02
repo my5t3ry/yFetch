@@ -1,0 +1,26 @@
+# blank lines and # comment lines to be ignored. Also anything after comment line #END
+# Ideally also ignore anything between /* .... */
+
+# test if these link notations are processed
+
+#Beethoven - Symphony No. 6 (Proms 2012)
+aW-7CqxhnAQ&t
+
+# Beethoven Symphony No 5 in C minor, Op 67 -Vienna Philharmonic Orchestra - Thielemann
+www.youtube.com/watch?v=olMPeiqoiic
+
+# Beethoven: Symphony No 4 in B flat major - BBC Proms 2012 (Daniel Barenboim)
+https://www.youtube.com/watch?v=ctBqW5e16YM
+
+# Beethoven "Symphony No 8" Karajan
+https://youtu.be/C2Avpt9FKP0
+
+# Mussorgsky - Night On Bald Mountain
+youtu.be/iCEDfZgDPS8
+
+#END
+
+# to be ignored
+# Villa Lobos: Bachianas Brasileira n.5 - Anna Moffo
+
+https://youtu.be/anxdAcilnsM
