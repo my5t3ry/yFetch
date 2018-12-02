@@ -76,7 +76,7 @@ class Minimal extends \splitbrain\phpcli\PSR3CLI
 
     public function getOutputDir(): string
     {
-        return __DIR__ . "/../output/";
+        return __DIR__ . "/output/";
     }
 
 
