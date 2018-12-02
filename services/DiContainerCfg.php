@@ -11,14 +11,16 @@ use Monolog\Logger;
 
 function getDIContainerCfg()
 {
-    unlink("yFetch.log");
+    if (file_exists("yFetch.log")) {
+        unlink("yFetch.log");
+    }
     return [
         Psr\Log\LoggerInterface::class => DI\factory(function () {
             $logger = new \Monolog\Logger("log");
             $fileHandler = new StreamHandler('yFetch.log', Logger::DEBUG);
             $fileHandler->setFormatter(new LineFormatter());
             $logger->pushHandler($fileHandler);
-            $logger->pushHandler(new StreamHandler('php://stdout', Logger::INFO)); 
+            $logger->pushHandler(new StreamHandler('php://stdout', Logger::INFO));
             return $logger;
         })];
 }
