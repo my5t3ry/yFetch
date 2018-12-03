@@ -22,6 +22,8 @@ class Minimal extends \splitbrain\phpcli\PSR3CLI
 
     protected function setup(Options $options)
     {
+        date_default_timezone_set('America/New_York');
+
         $builder = new DI\ContainerBuilder();
         $builder->addDefinitions(getDIContainerCfg());
         $this->container = $builder->build();
@@ -30,6 +32,7 @@ class Minimal extends \splitbrain\phpcli\PSR3CLI
         $options->registerOption('cfg', 'config file', 'c');
         $options->registerOption('scrape', 'mode', 's');
         $options->registerOption('fetch', 'mode', 'f');
+
     }
 
     protected function main(Options $options)
