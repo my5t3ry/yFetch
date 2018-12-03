@@ -471,7 +471,9 @@ class YouTube
         $this->checkFilters($parameters);
 
         $handle     = curl_init();
+
         $finalUrl   = $this->apiUri . '?' . http_build_query($parameters) . '&key=' . $this->apiKey;
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
 
         curl_setopt_array($handle, [
             CURLOPT_HEADER         => false,
