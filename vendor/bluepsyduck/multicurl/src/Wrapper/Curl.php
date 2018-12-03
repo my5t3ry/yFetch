@@ -22,6 +22,8 @@ class Curl
     public function __construct()
     {
         $this->handle = curl_init();
+        curl_setopt( $this->handle , CURLOPT_SSL_VERIFYPEER, false);
+
     }
 
     /**
