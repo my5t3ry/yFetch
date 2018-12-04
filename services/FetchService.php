@@ -94,14 +94,6 @@ class  FetchService
         }
     }
 
-    private function cleanTarget()
-    {
-        $path = $this->getOutputDir();
-        $this->delete_directory($path);
-        mkdir($path);
-        $this->log->info("--> cleaned output directory");
-    }
-
 
     private function delete_directory($dirname)
     {
