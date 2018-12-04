@@ -41,8 +41,8 @@ class  FetchService
             $this->log->info("Downloading ['" . $item->getDataUrl($this->cfgService) . "'] ->");
             $this->log->info($loc);
             $result = $this->download($dataUrl, $loc);
-            if ($result["response_code"] == 200) {
-                $this->log->info("done.");
+            if ($result["response_code"] != 200) {
+                $this->log->info("error");
             }
         }
     }
@@ -60,14 +60,14 @@ class  FetchService
         $totalItems = count($getVideoItems);
         $currentIndex = 0;
         $this->log->info("---> start to fetch videos");
-        foreach ($getVideoItems as $videoItems) {
+        foreach ($getVideoItems as $videoItem) {
             $currentIndex++;
-            $youtube = new YoutubeDownloader($videoItems->getId());
-            $youtube->setPath($this->getOutputDir($videoItems));;
-            $youtube->onProgress = function ($downloadedBytes, $fileSize, $index, $count) use ($totalItems, $currentIndex, $videoItems) {
+            $youtube = new YoutubeDownloader($videoItem->getId());
+            $youtube->setPath($this->getOutputDir($videoItem));;
+            $youtube->onProgress = function ($downloadedBytes, $fileSize, $index, $count) use ($totalItems, $currentIndex, $videoItem) {
                 if ($count > 1) echo '[' . $index . ' of ' . $count . ' videos] ';
                 if ($fileSize > 0)
-                    echo "\r" . '[' . $videoItems->getId() . '] [' . $currentIndex . '/' . $totalItems . '] Downloaded ' . $downloadedBytes . ' of ' . $fileSize . ' bytes [%' . number_format($downloadedBytes * 100 / $fileSize, 2) . '].';
+                    echo "\r" . '[' . $videoItem->getId() . '] [' . $currentIndex . '/' . $totalItems . '] Downloaded ' . $downloadedBytes . ' of ' . $fileSize . ' bytes [%' . number_format($downloadedBytes * 100 / $fileSize, 2) . '].';
                 else
                     echo "\r" . 'Downloading...';
             };
