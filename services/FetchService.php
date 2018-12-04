@@ -41,7 +41,7 @@ class  FetchService
             echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] ->" . PHP_EOL . $loc . PHP_EOL;
             $result = $this->download($dataUrl, $loc);
             if ($result["response_code"] == 200) {
-                echo "done.";
+                echo "done." . PHP_EOL;
             }
         }
     }
