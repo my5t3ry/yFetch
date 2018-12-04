@@ -37,7 +37,7 @@ class  FetchService
         $this->log->info("---> start to fetch thumbnails");
         foreach ($items as $item) {
             $dataUrl = $item->getDataUrl($this->cfgService);
-            $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title) . ".jpg";
+            $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg(str_replace("\"", "", $item->getMetaData()->snippet->title) . ".jpg");
             echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] $loc" . PHP_EOL;
             $result = $this->download($dataUrl, $loc);
             var_dump($result);
