@@ -54,6 +54,7 @@ class CurlFactory implements CurlFactoryInterface
             ? array_pop($this->handles)
             : curl_init();
         echo "testXXX";
+        var_dump($conf) ;
         curl_setopt_array($easy->handle, $conf);
 
         return $easy;
@@ -198,7 +199,6 @@ class CurlFactory implements CurlFactoryInterface
             CURLOPT_URL            => (string) $easy->request->getUri()->withFragment(''),
             CURLOPT_RETURNTRANSFER => false,
             CURLOPT_HEADER         => false,
-            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CONNECTTIMEOUT => 150,
         ];
 
