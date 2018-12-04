@@ -37,24 +37,21 @@ class  FetchService
         $this->log->info("---> start to fetch thumbnails");
         $client = new \GuzzleHttp\Client();
         $cfgService = $this->cfgService;
-        $promises = (function () use ($client, $items, $overwrite, $cfgService) {
-            foreach ($items as $item) {
-                $dataUrl = $item->getDataUrl($this->cfgService);
-                $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title) . ".jpg";
-                if ($overwrite && file_exists($loc)) unlink($loc);
-                yield $client->requestAsync('GET', $dataUrl, ['sink' => $loc]);
-                echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] $loc" . PHP_EOL;
-            }
-        })();
-        (new \GuzzleHttp\Promise\EachPromise(
-            $promises, [
-            'concurrency' => 10,
-            'fulfilled' => function (\Psr\Http\Message\ResponseInterface $response) {
-            },
-            'rejected' => function ($reason, $index) {
-                echo 'ERROR => ' . strtok($reason->getMessage(), "\n") . PHP_EOL;
-            },
-        ]))->promise()->wait();
+        foreach ($items as $item) {
+            $dataUrl = $item->getDataUrl($this->cfgService);
+            $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title) . ".jpg";
+            echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] $loc" . PHP_EOL;
+            $result = $this->download($dataUrl,$loc) ;
+            var_dump($result);
+        }
+    }
+
+    public function download($url, $loc)
+    {
+        $file_path = fopen($loc, 'w');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get($url, ['save_to' => $file_path]);
+        return ['response_code' => $response->getStatusCode(), 'name' => $loc];
     }
 
     private function fetchVideos(array $getVideoItems)
