@@ -35,8 +35,6 @@ class  FetchService
     private function fetchThumbnails(array $items, $overwrite = true)
     {
         $this->log->info("---> start to fetch thumbnails");
-        $client = new \GuzzleHttp\Client();
-        $cfgService = $this->cfgService;
         foreach ($items as $item) {
             $dataUrl = $item->getDataUrl($this->cfgService);
             $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title) . ".jpg";
@@ -48,7 +46,7 @@ class  FetchService
 
     public function download($url, $loc)
     {
-        $file_path = fopen($loc, 'w');
+        $file_path = fopen($loc, 'ab+');
         $client = new \GuzzleHttp\Client();
         $response = $client->get($url, ['save_to' => $file_path]);
         return ['response_code' => $response->getStatusCode(), 'name' => $loc];
