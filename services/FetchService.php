@@ -39,7 +39,7 @@ class  FetchService
             $dataUrl = $item->getDataUrl($this->cfgService);
             $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . escapeshellarg($item->getMetaData()->snippet->title) . ".jpg";
             echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] $loc" . PHP_EOL;
-            $result = $this->download($dataUrl,$loc) ;
+            $result = $this->download($dataUrl, $loc);
             var_dump($result);
         }
     }
@@ -79,9 +79,9 @@ class  FetchService
     public function getOutputDir($item = ""): string
     {
         if ($this->cfgService->getValue("directorySaveStrategy") == "flat" || $item == "") {
-            return __DIR__ . "/../output/";
+            return __DIR__ . DIRECTORY_SEPARATOR . "../output/" . DIRECTORY_SEPARATOR;
         } else {
-            $dir = __DIR__ . "/../output/" . $item->getId() . "/";
+            $dir = __DIR__ . DIRECTORY_SEPARATOR . "../output/" . $item->getId() . DIRECTORY_SEPARATOR;
             if (!file_exists($dir)) {
                 mkdir($dir);
             }
