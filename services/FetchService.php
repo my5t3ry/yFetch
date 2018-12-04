@@ -67,7 +67,7 @@ class  FetchService
             $youtube->onProgress = function ($downloadedBytes, $fileSize, $index, $count) use ($totalItems, $currentIndex, $videoItems) {
                 if ($count > 1) echo '[' . $index . ' of ' . $count . ' videos] ';
                 if ($fileSize > 0)
-                    echo "\r" . '[' . $videoItems->getId . '] [' . $currentIndex . '/' . $totalItems . '] Downloaded ' . $downloadedBytes . ' of ' . $fileSize . ' bytes [%' . number_format($downloadedBytes * 100 / $fileSize, 2) . '].';
+                    echo "\r" . '[' . $videoItems->getId() . '] [' . $currentIndex . '/' . $totalItems . '] Downloaded ' . $downloadedBytes . ' of ' . $fileSize . ' bytes [%' . number_format($downloadedBytes * 100 / $fileSize, 2) . '].';
                 else
                     echo "\r" . 'Downloading...';
             };
