@@ -79,10 +79,11 @@ class  FetchService
     public function getOutputDir($item = ""): string
     {
         if ($this->cfgService->getValue("directorySaveStrategy") == "flat" || $item == "") {
-            return __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR;
+            return __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output";
         } else {
-            $dir = __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR . $item->getId() . DIRECTORY_SEPARATOR;
+            $dir = __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR . $item->getId();
             if (!file_exists($dir)) {
+                $this->log->info("created dir: ['" . $dir . "']";
                 mkdir($dir);
             }
             return $dir;
