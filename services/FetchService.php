@@ -81,7 +81,7 @@ class  FetchService
         if ($this->cfgService->getValue("directorySaveStrategy") == "flat" || $item == "") {
             return __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR;
         } else {
-            $dir = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "output" . $item->getId() . DIRECTORY_SEPARATOR;
+            $dir = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR . $item->getId() . DIRECTORY_SEPARATOR;
             if (!file_exists($dir)) {
                 mkdir($dir);
             }
