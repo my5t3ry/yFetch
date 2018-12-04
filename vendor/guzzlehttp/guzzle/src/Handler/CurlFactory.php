@@ -53,6 +53,7 @@ class CurlFactory implements CurlFactoryInterface
         $easy->handle = $this->handles
             ? array_pop($this->handles)
             : curl_init();
+        echo "testXXX";
         curl_setopt_array($easy->handle, $conf);
 
         return $easy;

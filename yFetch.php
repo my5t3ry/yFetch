@@ -23,15 +23,6 @@ class Minimal extends \splitbrain\phpcli\PSR3CLI
     protected function setup(Options $options)
     {
         date_default_timezone_set('America/New_York');
-        $client = new GuzzleHttp\Client([
-            'defaults' => [
-                'config' => [
-                    'curl' => [
-                        CURLOPT_SSL_VERIFYPEER => 0
-                    ]
-                ]
-            ]
-        ]);
         
         $builder = new DI\ContainerBuilder();
         $builder->addDefinitions(getDIContainerCfg());
