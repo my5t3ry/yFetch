@@ -64,16 +64,16 @@ class  FetchService
             $currentIndex++;
             $youtube = new YoutubeDownloader($videoItems->getId());
             $youtube->setPath($this->getOutputDir($videoItems));;
-            $youtube->onProgress = function ($downloadedBytes, $fileSize, $index, $count) use ($totalItems, $currentIndex) {
+            $youtube->onProgress = function ($downloadedBytes, $fileSize, $index, $count) use ($totalItems, $currentIndex, $videoItems) {
                 if ($count > 1) echo '[' . $index . ' of ' . $count . ' videos] ';
                 if ($fileSize > 0)
-                    echo "\r" . '[' . $currentIndex . '/' . $totalItems . '] Downloaded ' . $downloadedBytes . ' of ' . $fileSize . ' bytes [%' . number_format($downloadedBytes * 100 / $fileSize, 2) . '].';
+                    echo "\r" . '[' . $videoItems->getId . '] [' . $currentIndex . '/' . $totalItems . '] Downloaded ' . $downloadedBytes . ' of ' . $fileSize . ' bytes [%' . number_format($downloadedBytes * 100 / $fileSize, 2) . '].';
                 else
                     echo "\r" . 'Downloading...';
             };
             $youtube->onComplete = function ($filePath, $fileSize, $index, $count) use ($currentIndex) {
                 if ($count > 1) echo '[' . $index . ' of ' . $count . ' videos] ';
-                echo 'Downloading of ' . $fileSize . ' bytes has been completed. It is saved in ' . $filePath . PHP_EOL;
+                echo PHP_EOL . 'Downloading of ' . $fileSize . ' bytes has been completed. It is saved in ' . $filePath . PHP_EOL;
             };
             $youtube->download();
         }
