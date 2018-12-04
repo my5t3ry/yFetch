@@ -6,8 +6,6 @@
  * Time: 12:51 AM
  */
 
-use Masih\YoutubeDownloader\YoutubeDownloader;
-
 class  FetchService
 {
 
@@ -38,9 +36,11 @@ class  FetchService
         foreach ($items as $item) {
             $dataUrl = $item->getDataUrl($this->cfgService);
             $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . str_replace("\"", "", $item->getMetaData()->snippet->title) . ".jpg";
-            echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] $loc" . PHP_EOL;
+            echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] ->" . PHP_EOL . $loc . PHP_EOL;
             $result = $this->download($dataUrl, $loc);
-            var_dump($result);
+            if ($result["response_code"] == 200) {
+                echo "done.";
+            }
         }
     }
 
@@ -79,9 +79,9 @@ class  FetchService
     public function getOutputDir($item = ""): string
     {
         if ($this->cfgService->getValue("directorySaveStrategy") == "flat" || $item == "") {
-            return __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR;
+            return __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR;
         } else {
-            $dir = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR . $item->getId() . DIRECTORY_SEPARATOR;
+            $dir = __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR . $item->getId() . DIRECTORY_SEPARATOR;
             if (!file_exists($dir)) {
                 mkdir($dir);
             }
@@ -97,9 +97,9 @@ class  FetchService
         if (!$dir_handle)
             return false;
         while ($file = readdir($dir_handle)) {
-            if ($file != "." && $file != "..") {
-                if (!is_dir($dirname . "/" . $file))
-                    unlink($dirname . "/" . $file);
+            if ($file != " . " && $file != " ..") {
+                if (!is_dir($dirname . " / " . $file))
+                    unlink($dirname . " / " . $file);
                 else
                     $this->delete_directory($dirname . '/' . $file);
             }
