@@ -83,7 +83,7 @@ class  FetchService
         } else {
             $dir = __DIR__ . DIRECTORY_SEPARATOR . " .." . DIRECTORY_SEPARATOR . "output" . DIRECTORY_SEPARATOR . $item->getId();
             if (!file_exists($dir)) {
-                $this->log->info("created dir: ['" . $dir . "']";
+                $this->log->info("created dir: ['" . $dir . "']");
                 mkdir($dir);
             }
             return $dir;
