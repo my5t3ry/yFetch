@@ -37,7 +37,7 @@ class  FetchService
         $this->log->info("---> start to fetch thumbnails");
         foreach ($items as $item) {
             $dataUrl = $item->getDataUrl($this->cfgService);
-            $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . str_replace("\"", "", $item->getMetaData()->snippet->title) . ".jpg";
+            $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . preg_replace('/[^A-Za-z0-9_\-]/', '_', str_replace("\"", "", $item->getMetaData()->snippet->title)) . ".jpg";
             $this->log->info("Downloading ['" . $item->getDataUrl($this->cfgService) . "'] ->");
             $this->log->info($loc);
             $result = $this->download($dataUrl, $loc);
