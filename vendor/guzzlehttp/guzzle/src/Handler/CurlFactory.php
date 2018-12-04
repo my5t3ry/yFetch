@@ -53,9 +53,9 @@ class CurlFactory implements CurlFactoryInterface
         $easy->handle = $this->handles
             ? array_pop($this->handles)
             : curl_init();
-        curl_setopt($easy->handle, CURLOPT_SSL_VERIFYPEER, false);
 
         curl_setopt_array($easy->handle, $conf);
+        curl_setopt($easy->handle, CURLOPT_SSL_VERIFYPEER, false);
 
         return $easy;
     }
