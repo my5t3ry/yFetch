@@ -38,10 +38,11 @@ class  FetchService
         foreach ($items as $item) {
             $dataUrl = $item->getDataUrl($this->cfgService);
             $loc = $this->getOutputDir($item) . DIRECTORY_SEPARATOR . $item->getMetaData()->{"id"} . "_" . str_replace("\"", "", $item->getMetaData()->snippet->title) . ".jpg";
-            echo "Downloading ['" . $item->getDataUrl($this->cfgService) . "'] ->" . PHP_EOL . $loc . PHP_EOL;
+            $this->log->info("Downloading ['" . $item->getDataUrl($this->cfgService) . "'] ->");
+            $this->log->info($loc);
             $result = $this->download($dataUrl, $loc);
             if ($result["response_code"] == 200) {
-                echo "done." . PHP_EOL;
+                $this->log->info("done.");
             }
         }
     }
