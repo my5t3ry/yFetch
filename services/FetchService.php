@@ -46,7 +46,7 @@ class  FetchService
 
     public function download($url, $loc)
     {
-        $file_path = fopen($loc, 'ab+');
+        $file_path = fopen($loc, 'wab+');
         $client = new \GuzzleHttp\Client();
         $response = $client->get($url, ['save_to' => $file_path]);
         return ['response_code' => $response->getStatusCode(), 'name' => $loc];
