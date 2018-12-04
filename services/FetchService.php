@@ -6,6 +6,8 @@
  * Time: 12:51 AM
  */
 
+use Masih\YoutubeDownloader\YoutubeDownloader;
+
 class  FetchService
 {
 
