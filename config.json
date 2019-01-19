@@ -72,5 +72,9 @@
     "title": "snippet.title",
     "description": "snippet.description",
     "thumbUrl": "snippet.thumbnails.default.url"
+  },
+  "meta-data-replace": {
+    "\n": " %lf%",
+    "\"": "%sq%"
   }
 }

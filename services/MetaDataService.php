@@ -43,11 +43,11 @@ class MetaDataService
             $this->i++;
             try {
                 if ($item->getType() == FetchItemType::VIDEO_TYPE() || $item->getType() == FetchItemType::THUMBNAIL_TYPE()) {
-                    $item->setMetaData($this->youtube->getVideoInfo($item->getId()));
+                    $item->setMetaData($this->replaceStrings($this->youtube->getVideoInfo($item->getId())));
                 } elseif ($item->getType() == FetchItemType::PLAYLIST_TYPE()) {
-                    $item->setMetaData($this->youtube->getPlaylistById($item->getId()));
-                }elseif ($item->getType() == FetchItemType::CHANNEL_TYPE()) {
-                    $item->setMetaData($this->youtube->getChannelById($item->getId()));
+                    $item->setMetaData($this->replaceStrings($this->youtube->getPlaylistById($item->getId())));
+                } elseif ($item->getType() == FetchItemType::CHANNEL_TYPE()) {
+                    $item->setMetaData($this->replaceStrings($this->youtube->getChannelById($item->getId())));
                 }
                 $this->log->info("--> ['" . $this->i . "'] fetched meta data for item with type ['" . $item->getType() . "'] id ['" . $item->getId() . "']");
             } catch (Exception $e) {
@@ -57,6 +57,20 @@ class MetaDataService
                 $this->fetchItemService->removeItemFromQueue($item);
             }
         }
+    }
+
+    public function replaceStrings($metaData)
+    {
+        $cfg = $this->cfgService->getCfg();
+        $result = $metaData;
+        foreach ($cfg{"meta-data-replace"} as $key => $val) {
+            array_walk_recursive($metaData, function($v,$k) use (&$metaData, &$key, &$val) {
+                if (is_string($metaData->$k)) {
+                    $metaData->$k = preg_replace($key, $val, $metaData->$k);
+                }
+            });
+        }
+        return $result;
     }
 
     public function getCfgService(): CfgService

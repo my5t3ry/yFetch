@@ -44,7 +44,6 @@ class MetrixService
     private function buildBody($cfgObject, $items, $delimiter)
     {
         $result = array();
-        $str = "";
         foreach ($items as $item) {
             $str = "";
             foreach ($cfgObject as $key => $val) {
